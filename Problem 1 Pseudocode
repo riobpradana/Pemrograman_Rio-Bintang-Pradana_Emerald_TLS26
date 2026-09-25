@@ -1,0 +1,41 @@
+BEGIN
+
+DECLARE n, k, pos AS INTEGER
+pos = 0
+
+OUTPUT "Masukkan N: "
+INPUT n
+OUTPUT "Masukkan K: "
+INPUT k
+
+IF k < 2 THEN
+    k = 2
+END IF
+
+DECLARE astronaut AS LIST OF INTEGER
+
+FOR i = 1 TO n
+    APPEND i TO astronaut
+END FOR
+
+OUTPUT "Urutan eliminasi: "
+
+WHILE LENGTH(astronaut) > 1 DO
+    pos = (pos + k - 1) MOD LENGTH(astronaut)
+    eliminated = astronaut[pos]
+    OUTPUT eliminated, " "
+    REMOVE astronaut[pos] FROM astronaut
+
+    IF eliminated MOD 2 == 0 THEN
+        k = k + 2
+    ELSE
+        k = k - 1
+        IF k < 2 THEN
+            k = 2
+        END IF
+    END IF
+END WHILE
+
+OUTPUT "Astronaut terakhir: ", astronaut[0]
+
+END
